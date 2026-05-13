@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<sdf version="1.5">
+  <model name="aquabot_windturbine_rotor">
+    <static>true</static>
+    <link name="link">
+      <visual name="visual">
+        <pose>-3.55 0.0 30.0 0 0 0 </pose>
+        <geometry>
+          <mesh>
+            <uri>mesh/rotor.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      <collision name="collision">
+        <pose>-4.55 0 30 0 1.57 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>16</radius>
+            <length>0.9</length>
+          </cylinder>
+        </geometry>
+      </collision>
+    </link>
+  </model>
+</sdf>

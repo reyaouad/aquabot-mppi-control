@@ -1,0 +1,296 @@
+<?xml version="1.0" ?>
+
+<sdf version="1.9">
+  <world name="aquabot_windturbines_easy">
+
+    <physics name="4ms" type="dart">
+      <max_step_size>0.004</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+      <real_time_update_rate>0.0</real_time_update_rate>
+    </physics>
+
+    <plugin
+      filename="ignition-gazebo-physics-system"
+      name="ignition::gazebo::systems::Physics">
+    </plugin>
+    <plugin
+      filename="ignition-gazebo-user-commands-system"
+      name="ignition::gazebo::systems::UserCommands">
+    </plugin>
+    <plugin
+      filename="ignition-gazebo-sensors-system"
+      name="ignition::gazebo::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+      <disable_on_drained_battery>true</disable_on_drained_battery>
+    </plugin>
+    <plugin
+      filename="ignition-gazebo-imu-system"
+      name="ignition::gazebo::systems::Imu">
+    </plugin>
+    <plugin
+      filename="ignition-gazebo-magnetometer-system"
+      name="ignition::gazebo::systems::Magnetometer">
+    </plugin>
+    <plugin
+      filename="ignition-gazebo-forcetorque-system"
+      name="ignition::gazebo::systems::ForceTorque">
+    </plugin>
+    <plugin
+      filename="ignition-gazebo-scene-broadcaster-system"
+      name="ignition::gazebo::systems::SceneBroadcaster">
+    </plugin>
+    <plugin
+      filename="ignition-gazebo-contact-system"
+      name="ignition::gazebo::systems::Contact">
+    </plugin>
+    <plugin
+      filename="ignition-gazebo-navsat-system"
+      name="ignition::gazebo::systems::NavSat">
+    </plugin>
+
+    <scene>
+      <sky></sky>
+      <grid>false</grid>
+      <ambient>1.0 1.0 1.0</ambient>
+      <background>0.8 0.8 0.8</background>
+    </scene>
+
+    <!-- Estimated latitude/longitude of ar-men light house
+         from satellite imagery -->
+    <spherical_coordinates>
+      <surface_model>EARTH_WGS84</surface_model>
+      <world_frame_orientation>ENU</world_frame_orientation>
+      <latitude_deg>48.04630</latitude_deg>
+      <longitude_deg>-4.97632</longitude_deg>
+      <elevation>0.0</elevation>
+      <heading_deg>0.0</heading_deg>
+    </spherical_coordinates>
+
+    <light type="directional" name="sun">
+      <cast_shadows>false</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+    <include>
+      <name>Coast Waves</name>
+      <pose>0 0 0 0 0 0</pose>
+      <uri>coast_waves</uri>
+    </include>
+
+    <!-- Aquabot regatta world from model file -->
+    <include>
+      <name>aquabot_regatta_world</name>
+      <pose>0 0 0 0 0 0</pose>
+      <uri>aquabot_regatta_world</uri>
+    </include>
+    
+    <!-- Load the plugin for the wind --> 
+    <plugin
+      filename="libUSVWind.so"
+      name="vrx::USVWind">
+      <wind_obj>
+        <name>aquabot</name>
+        <link_name>aquabot/base_link</link_name>
+        <coeff_vector>.5 .5 .33</coeff_vector>
+      </wind_obj>
+      <!-- Wind -->
+      <wind_direction>240</wind_direction>
+      <!-- in degrees -->
+      <wind_mean_velocity>0.0</wind_mean_velocity>
+      <var_wind_gain_constants>0</var_wind_gain_constants>
+      <var_wind_time_constants>2</var_wind_time_constants>
+      <random_seed>10</random_seed>
+      <!-- set to zero/empty to randomize -->
+      <update_rate>10</update_rate>
+      <topic_wind_speed>/vrx/debug/wind/speed</topic_wind_speed>
+      <topic_wind_direction>/vrx/debug/wind/direction</topic_wind_direction>
+     </plugin>
+
+    <!-- The wave field -->
+    <plugin filename="libPublisherPlugin.so" name="vrx::PublisherPlugin">
+      <message type="gz.msgs.Param" topic="/vrx/wavefield/parameters"
+               every="2.0">
+        params {
+          key: "direction"
+          value {
+            type: DOUBLE
+            double_value: 0.0
+          }
+        }
+        params {
+          key: "gain"
+          value {
+            type: DOUBLE
+            double_value: 0.3
+          }
+        }
+        params {
+          key: "period"
+          value {
+            type: DOUBLE
+            double_value: 10.0
+          }
+        }
+        params {
+          key: "steepness"
+          value {
+            type: DOUBLE
+            double_value: 0.0
+          }
+        }
+      </message>
+    </plugin>
+
+    <!-- GENERATED SCENARIO -->
+    <generation_seed>AHj1VjJI7VlnxRnv</generation_seed>
+    <include>
+      <name>aquabot_windturbine_main_0_OK</name>
+      <pose>65 50 0 0 0 0.450100</pose>
+      <uri>aquabot_windturbine_main</uri>
+    </include>
+    <actor name="aquabot_windturbine_rotor_0_OK">
+      <skin>
+        <filename>../models/aquabot_windturbine_rotor/mesh/rotor.dae</filename>
+      </skin>
+      <script>
+        <loop>true</loop>
+        <delay_start>2</delay_start>
+        <auto_start>true</auto_start>
+        <trajectory id="0" type="square">
+          <waypoint>
+            <time>0.000000</time>
+            <pose>65 50 30.0 0.0000 0 0.450100</pose>
+          </waypoint>
+          <waypoint>
+            <time>15.000000</time>
+            <pose>65 50 30.0 -3.1415 0 0.450100</pose>
+          </waypoint>
+          <waypoint>
+            <time>30.000000</time>
+            <pose>65 50 30.0 -6.2830 0 0.450100</pose>
+          </waypoint>
+        </trajectory>
+      </script>
+    </actor>
+    <include>
+      <name>aquabot_marker_0_OK_0</name>
+      <pose>65 50 0 0 0 6.277234</pose>
+      <uri>aquabot_marker_0_OK</uri>
+    </include>
+    <include>
+      <name>aquabot_windturbine_main_1_KO</name>
+      <pose>-85.810648 -6.200278 0 0 0 4.052918</pose>
+      <uri>aquabot_windturbine_main</uri>
+    </include>
+    <actor name="aquabot_windturbine_rotor_1_KO">
+      <skin>
+        <filename>../models/aquabot_windturbine_rotor/mesh/rotor.dae</filename>
+      </skin>
+      <script>
+        <loop>true</loop>
+        <delay_start>2</delay_start>
+        <auto_start>true</auto_start>
+        <trajectory id="0" type="square">
+          <waypoint>
+            <time>0.000000</time>
+            <pose>-85.810648 -6.200278 30.0 0.0000 0 4.052918</pose>
+          </waypoint>
+          <waypoint>
+            <time>15.000000</time>
+            <pose>-85.810648 -6.200278 30.0 -3.1415 0 4.052918</pose>
+          </waypoint>
+          <waypoint>
+            <time>30.000000</time>
+            <pose>-85.810648 -6.200278 30.0 -6.2830 0 4.052918</pose>
+          </waypoint>
+        </trajectory>
+      </script>
+    </actor>
+    <include>
+      <name>aquabot_marker_1_KO_0</name>
+      <pose>-85.810648 -6.200278 0 0 0 4.509710</pose>
+      <uri>aquabot_marker_1_KO</uri>
+    </include>
+    <include>
+      <name>aquabot_windturbine_main_2_KO</name>
+      <pose>-70.015184 83.216586 0 0 0 5.406940</pose>
+      <uri>aquabot_windturbine_main</uri>
+    </include>
+    <actor name="aquabot_windturbine_rotor_2_KO">
+      <skin>
+        <filename>../models/aquabot_windturbine_rotor/mesh/rotor.dae</filename>
+      </skin>
+      <script>
+        <loop>true</loop>
+        <delay_start>2</delay_start>
+        <auto_start>true</auto_start>
+        <trajectory id="0" type="square">
+          <waypoint>
+            <time>0.000000</time>
+            <pose>-70.015184 83.216586 30.0 0.0000 0 5.406940</pose>
+          </waypoint>
+          <waypoint>
+            <time>15.000000</time>
+            <pose>-70.015184 83.216586 30.0 -3.1415 0 5.406940</pose>
+          </waypoint>
+          <waypoint>
+            <time>30.000000</time>
+            <pose>-70.015184 83.216586 30.0 -6.2830 0 5.406940</pose>
+          </waypoint>
+        </trajectory>
+      </script>
+    </actor>
+    <include>
+      <name>aquabot_marker_2_KO_0</name>
+      <pose>-70.015184 83.216586 0 0 0 5.668543</pose>
+      <uri>aquabot_marker_2_KO</uri>
+    </include>
+    <plugin filename="libWindturbinesInspectionScoringPlugin.so" name="vrx::WindturbinesInspectionScoringPlugin">
+      <vehicle>aquabot</vehicle>
+      <task_name>windturbines_inspection</task_name>
+      <task_info_topic>/vrx/task/info</task_info_topic>
+      <initial_state_duration>10</initial_state_duration>
+      <ready_state_duration>10</ready_state_duration>
+      <running_state_duration>12000</running_state_duration>
+      <release_topic>/vrx/release</release_topic>
+      <pinger_position>-85.810648 -6.200278 0</pinger_position>
+      <phase_search_max_time>20000</phase_search_max_time>
+      <phase_rally_period_publish>20.0</phase_rally_period_publish>
+      <phase_rally_min_distance>15.0</phase_rally_min_distance>
+      <phase_turnaround_number_turns>-1.0</phase_turnaround_number_turns>
+      <phase_stabilize_total_time>180</phase_stabilize_total_time>
+      <phase_inspection_target_distance>10.0</phase_inspection_target_distance>
+      <phase_stabilize_turnaround_mean_period>30</phase_stabilize_turnaround_mean_period>
+      <collision_min_distance>10.0</collision_min_distance>
+      <collision_finish>true</collision_finish>
+      <collision_penality>10</collision_penality>
+      <critical_marker_name>aquabot_marker_1_KO_0</critical_marker_name>
+      <windturbines>
+        <windturbine>
+          <id>0</id>
+          <status>OK</status>
+          <name>aquabot_windturbine_main_0_OK</name>
+        </windturbine>
+        <windturbine>
+          <id>1</id>
+          <status>KO</status>
+          <name>aquabot_windturbine_main_1_KO</name>
+        </windturbine>
+        <windturbine>
+          <id>2</id>
+          <status>KO</status>
+          <name>aquabot_windturbine_main_2_KO</name>
+        </windturbine>
+      </windturbines>
+    </plugin>
+  </world>
+</sdf>
