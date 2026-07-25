@@ -227,11 +227,11 @@ Not yet wired: camera aiming, facing-direction computation, and handing off to t
 ## Roadmap / known limitations
 
 **QR Code Reading:**
-- [ ] Wire QR facing/aiming into the mission's station-keep phase
-- [ ] 30 s stabilization + round turn in front of the pinger-designated turbine
+- [ ] Add QR facing into the mission's station-keep phase
+- [ ] 30 s stabilization + round turn in front of the QR-designated turbine
 
 **Tracking:**
-- [ ] Overlap next-turbine planning with the tail of the current orbit (pre-fetch the approach path before the orbit finishes) instead of waiting for `PLAN_APPROACH` after completion,  eliminates the stale-plan deviation seen during turbine-to-turbine handoffs (see [Results](#results))
+- [ ] Overlap next-turbine planning with the tail of the current orbit (pre-fetch the approach path before the orbit finishes) instead of waiting for `PLAN_APPROACH` after completion, to eliminate the stale-plan deviation seen during turbine-to-turbine (see [Results](#results))
 
 ## Acknowledgments
 
