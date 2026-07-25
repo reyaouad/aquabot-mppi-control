@@ -96,7 +96,7 @@ All `K × horizon` noise draws are CPU generated with OpenMP, then go to the GPU
 Evaluated once per rollout per horizon step, summed over the horizon:
 
 | Term | Shape | Purpose |
-|   |   |   |
+|---|---|---|
 | Cross track error | Huber (quadratic < 1 m, linear beyond) | keep the boat on the path; doesn't blow up if a sampled rollout is briefly far off |
 | Along track error | quadratic, low weight | loose , doesn't fight the speed term |
 | Heading error | quadratic, with deadband | align with the path tangent |
