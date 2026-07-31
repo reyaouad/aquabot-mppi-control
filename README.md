@@ -159,7 +159,11 @@ The single path design is deliberate: driving discrete stop and go waypoints aro
 
 <div align="center">
 
-https://github.com/user-attachments/assets/686747a6-ec6d-459a-9f93-bcc864f7d64e
+<!-- old one https://github.com/user-attachments/assets/686747a6-ec6d-459a-9f93-bcc864f7d64e -->
+
+
+https://github.com/user-attachments/assets/2c24a71f-77b1-409b-ad29-ab3d5ff8590a
+
 
 </div>
 
