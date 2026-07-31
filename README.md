@@ -130,19 +130,6 @@ The control loop logs a `setup / noise / gpu / viz / rest` timing breakdown each
 On an RTX 4060 a full 4000-rollout × 60-step cycle takes ~?? ms, leaving headroom for the 100 ms loop.
 -->
 
-## Obstacle avoidance
-
-Before running the full inspection mission, this shorter (150 s) run isolates one job: prove the planner routes cleanly around fixed obstacles and the SMPPI controller tracks that route without cutting corners. The boat is given a goal on the far side of a cluster of rocks and islands, so its only way through is a path that weaves between the no go zones the planner builds around each obstacle.
-
-The video below shows the run side by side in RViz (left) and Gazebo (right) , in RViz you can see the planned A\* path, the obstacle markers, and the MPPI rollout "tentacles" fanning out ahead of the boat as it picks its way through.
-
-<div align="center">
-
-https://github.com/user-attachments/assets/6beaf017-1508-4a7c-a9b6-7287dc1c2a85
-
-</div>
-
-The quantitative tracking results for this run are reported alongside the full mission numbers in [Results](#results).
 
 ## Mission: continuous turbine inspection
 
@@ -166,6 +153,20 @@ https://github.com/user-attachments/assets/2c24a71f-77b1-409b-ad29-ab3d5ff8590a
 
 
 </div>
+
+## Obstacle avoidance
+
+Before running the full inspection mission, this shorter (150 s) run isolates one job: prove the planner routes cleanly around fixed obstacles and the SMPPI controller tracks that route without cutting corners. The boat is given a goal on the far side of a cluster of rocks and islands, so its only way through is a path that weaves between the no go zones the planner builds around each obstacle.
+
+The video below shows the run side by side in RViz (left) and Gazebo (right) , in RViz you can see the planned A\* path, the obstacle markers, and the MPPI rollout "tentacles" fanning out ahead of the boat as it picks its way through.
+
+<div align="center">
+
+https://github.com/user-attachments/assets/6beaf017-1508-4a7c-a9b6-7287dc1c2a85
+
+</div>
+
+The quantitative tracking results for this run are reported alongside the full mission numbers in [Results](#results).
 
 ## Results
 
